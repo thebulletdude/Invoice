@@ -7,8 +7,12 @@ def products():
                 'Notebook': {'qnt': 5, 'unit_price': 7.5, 'discount': 10}}
     return products
 
-def test_CanCalculateTotalImpurePrice(products):
+@pytest.fixture()
+def invoice():
     invoice = Invoice()
+    return invoice
+
+def test_CanCalculateTotalImpurePrice(invoice, products):
     invoice.totalImpurePrice(products)
     assert invoice.totalImpurePrice(products) == 75
 
@@ -19,6 +23,17 @@ def test_CanCalculateTotalDiscount(invoice, products):
 def test_CanCalculateTotalPurePrice(invoice, products):
     invoice.totalPurePrice(products)
     assert invoice.totalPurePrice(products) == 69.38
+
+def test_CanAddProduct(invoice, products):
+    ind = invoice.addProduct(1, 2, 0)
+    assert ind == {'qnt': 1, 'unit_price': 2, 'discount': 0}
+
+def test_Invoice(invoice):
+    ind = Invoice()
+    ind = invoice
+
+
+
 
 
 
